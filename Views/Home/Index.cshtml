@@ -8,7 +8,12 @@
     <link href="~/css/all.min.css" rel="stylesheet" />
     <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     
-    
+    <style>
+        .fa-flag:hover {
+            cursor: pointer;
+            color: blue;
+        }
+    </style>
 </head>
 <body>
     
@@ -21,12 +26,13 @@
 
     <table id="myTable"class="table table-bordered">
         <thead>
-            <tr><th>Date</th><th>Time</th><th>Location</th></tr>
+            <tr><th>Flag</th><th>Date</th><th>Time</th><th>Location</th></tr>
         </thead>
         <tbody>
             @foreach (var e in Model)
             {
                 <tr>
+                    <td><i class="@(e.Flagged ? "fas " : "far ") fa-flag"></i></td>
                     <td>@String.Format("{0: ddd, MMM dd, yyyy}", e.TimeStamp)</td>
                     <td>@String.Format("{0:hh:mm tt}", e.TimeStamp)</td>
                     <td>@e.Location.Name</td>
@@ -50,8 +56,20 @@
     $(document).ready(function () {
         $('#myTable').DataTable({
             ordering: true
-    });
+        });
+
+        $(document).on("click", ".fa-flag", function (e) {
+            if ($(this).hasClass("far")) {
+                $(this).removeClass("far");
+                $(this).addClass("fas");
+            } else {
+                $(this).removeClass("fas");
+                $(this).addClass("far");
+            }
+        })
+        
     });
 </script>
 </body>
 </html>
+

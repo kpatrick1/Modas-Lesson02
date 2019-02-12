@@ -15,7 +15,7 @@ namespace Modas.Controllers
         }
 
         public ViewResult Index(int page = 1) => View(
-            repository.Events.Include(e => e.Location));
+            repository.Events.Include(e => e.Location).OrderByDescending(e => e.TimeStamp));
 
         //.OrderBy(e => e.TimeStamp)
         //.Skip((page - 1) * PageSize)
